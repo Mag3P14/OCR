@@ -50,5 +50,3 @@ def visualize_image(img):
             else:
                 print('1',end='')
         print('')
-
-loading language \'eng\' Tesseract couldn\'t load any languages! Could not initialize tesseract.'
