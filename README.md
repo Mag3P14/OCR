@@ -1,2 +1,4 @@
-- readme test
-- got problems with pushing code
+- Camera now running 
+- Low framerate (code/another camera?)
+- Try different resolutions and FPS settings
+- Try experimenting with different detection and language settings
