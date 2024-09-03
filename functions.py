@@ -1,6 +1,28 @@
 import cv2
 import pytesseract
+import platform
 
+def tesseract_setup():
+    if platform.system() == 'Windows':
+        pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+    elif platform.system() == 'Linux':
+        pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+    else:
+        print('Too bad')
+        quit()
+
+def capture_setup():
+    cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+    FPS = 60
+    cap.set(cv2.CAP_PROP_FPS, FPS)
+    #width = 1920
+    #height = 1080
+    #cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+    #cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    #img = cv2.imread('qrcode.jpg')
+    #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    return cap
 
 def detect_chars(img):
     boxes = pytesseract.image_to_boxes(img)
@@ -19,7 +41,7 @@ def detect_chars(img):
     cv2.waitKey(0)
 
 def detect_words(img):
-    boxes = pytesseract.image_to_data(img,lang='ces')
+    boxes = pytesseract.image_to_data(img)
     hImg = img.shape[0]
     wImg = img.shape[1]
     text_offset = 5
@@ -37,7 +59,6 @@ def detect_words(img):
                 cv2.putText(img, b[11], (x, y-text_offset), cv2.FONT_HERSHEY_PLAIN, 1.2, (50, 50, 255), 1)
 
     cv2.imshow('Result', img)
-
 
 def visualize_image(img):
     white_threshold = 250
